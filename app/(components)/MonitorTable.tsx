@@ -1,21 +1,21 @@
+import { filterConfig } from "../(config)/filterConfig";
+import { columns } from "../(config)/columns";
 import { AnimalData } from "../(data)/fakeData";
-import { ColumnConfig } from "../(config)/columnConfig";
 
 interface MonitorTableProps {
     data: AnimalData[];
     page: number;
     pageSize: number;
     isPaginated: boolean;
-    filters: { [key: string]: string | number | { min?: number; max?: number } | undefined };
+    filters: { [key: string]: string | number | { start?: string; end?: string } | undefined };
     updateFilter: (
         column: keyof AnimalData,
-        value: string | number | { min?: number; max?: number } | undefined
+        value: string | number | { start?: string; end?: string } | undefined
     ) => void;
-    getFilteredValues: (key: keyof AnimalData) => string[];
+    getFilteredValues: (key: keyof AnimalData) => (string | number)[];
     requestSort: (key: keyof AnimalData) => void;
     sortConfig: { key: keyof AnimalData; direction: "asc" | "desc" } | null;
     resetFilter: () => void;
-    columnConfig: ColumnConfig[];
 }
 
 export default function MonitorTable({
@@ -29,15 +29,15 @@ export default function MonitorTable({
     requestSort,
     sortConfig,
     resetFilter,
-    columnConfig,
 }: MonitorTableProps) {
     return (
         <div className="overflow-x-auto bg-white shadow-md rounded-lg">
             <table className="w-full border-collapse border border-gray-300">
+                {/* 表头 */}
                 <thead>
                     <tr className="bg-gray-200">
                         <th className="border px-4 py-2">#</th>
-                        {columnConfig.map(({ key, label }) => (
+                        {columns.map(({ key, label }) => (
                             <th
                                 key={key}
                                 className="border px-4 py-2 cursor-pointer"
@@ -52,6 +52,7 @@ export default function MonitorTable({
                             </th>
                         ))}
                     </tr>
+                    {/* 筛选行 */}
                     <tr className="bg-gray-100">
                         <td className="border px-4 py-2">
                             <button
@@ -61,12 +62,12 @@ export default function MonitorTable({
                                 Reset
                             </button>
                         </td>
-                        {columnConfig.map(({ key, filterType, range }) => {
-                            if (filterType === "none") return <td key={key} className="border px-4 py-2"></td>;
+                        {columns.map(({ key }) => {
+                            const config = filterConfig[key];
 
                             return (
                                 <td key={key} className="border px-4 py-2">
-                                    {filterType === "dropdown" ? (
+                                    {config.type === "dropdown" && (
                                         <select
                                             value={filters[key] || ""}
                                             onChange={(e) =>
@@ -84,43 +85,82 @@ export default function MonitorTable({
                                                 </option>
                                             ))}
                                         </select>
-                                    ) : filterType === "range" ? (
+                                    )}
+
+                                    {config.type === "range" && (
                                         <div className="flex space-x-2">
                                             <input
                                                 type="number"
+                                                min={config.min}
+                                                max={config.max}
                                                 placeholder="Min"
-                                                value={(filters[key] as { min?: number })?.min || ""}
-                                                onChange={(e) =>
-                                                    updateFilter(key as keyof AnimalData, {
-                                                        ...(filters[key] as { min?: number; max?: number }),
-                                                        min: e.target.value ? Number(e.target.value) : undefined,
-                                                    })
-                                                }
                                                 className="w-1/2 border rounded-md p-1"
-                                                min={range?.min}
-                                                max={range?.max}
+                                                onChange={(e) =>
+                                                    updateFilter(
+                                                        key as keyof AnimalData,
+                                                        { start: e.target.value }
+                                                    )
+                                                }
                                             />
                                             <input
                                                 type="number"
+                                                min={config.min}
+                                                max={config.max}
                                                 placeholder="Max"
-                                                value={(filters[key] as { max?: number })?.max || ""}
-                                                onChange={(e) =>
-                                                    updateFilter(key as keyof AnimalData, {
-                                                        ...(filters[key] as { min?: number; max?: number }),
-                                                        max: e.target.value ? Number(e.target.value) : undefined,
-                                                    })
-                                                }
                                                 className="w-1/2 border rounded-md p-1"
-                                                min={range?.min}
-                                                max={range?.max}
+                                                onChange={(e) =>
+                                                    updateFilter(
+                                                        key as keyof AnimalData,
+                                                        { end: e.target.value }
+                                                    )
+                                                }
                                             />
                                         </div>
-                                    ) : null}
+                                    )}
+
+                                    {config.type === "time" && (
+                                        <div className="flex space-x-2">
+                                            <input
+                                                type="date"
+                                                min={config.startDate}
+                                                max={config.endDate}
+                                                className="w-1/2 border rounded-md p-1"
+                                                placeholder="Start Date"
+                                                onChange={(e) =>
+                                                    updateFilter(
+                                                        key as keyof AnimalData,
+                                                        {
+                                                            ...(filters[key] as any),
+                                                            start: e.target.value,
+                                                        }
+                                                    )
+                                                }
+                                            />
+                                            <input
+                                                type="date"
+                                                min={config.startDate}
+                                                max={config.endDate}
+                                                className="w-1/2 border rounded-md p-1"
+                                                placeholder="End Date"
+                                                onChange={(e) =>
+                                                    updateFilter(
+                                                        key as keyof AnimalData,
+                                                        {
+                                                            ...(filters[key] as any),
+                                                            end: e.target.value,
+                                                        }
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    )}
                                 </td>
                             );
                         })}
                     </tr>
                 </thead>
+
+                {/* 表体 */}
                 <tbody>
                     {data.map((animal, index) => (
                         <tr key={`${animal.id}-${index}`} className="text-center">
@@ -129,7 +169,7 @@ export default function MonitorTable({
                                     ? (page - 1) * pageSize + index + 1
                                     : index + 1}
                             </td>
-                            {columnConfig.map(({ key }) => (
+                            {columns.map(({ key }) => (
                                 <td key={key} className="border px-4 py-2">
                                     {animal[key as keyof AnimalData]}
                                 </td>
