@@ -1,4 +1,4 @@
-import PostureChart from "../(components)/PostureChart";
+import PostureChart from "./(components)/PostureChart";
 
 export default function PosturePage() {
     return (

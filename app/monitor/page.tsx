@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import { generateFakeData, AnimalData } from "../(data)/fakeData";
-import MonitorTable from "../(components)/MonitorTable";
-import { useFilter } from "../(hooks)/useFilter";
-import { usePagination } from "../(hooks)/usePagination";
+import { generateFakeData, AnimalData } from "./(data)/fakeData";
+import MonitorTable from "./(components)/MonitorTable";
+import { useFilter } from "./(hooks)/useFilter";
+import { usePagination } from "./(hooks)/usePagination";
 
 export default function MonitorPage() {
     const [data, setData] = useState<AnimalData[]>([]);

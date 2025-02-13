@@ -39,7 +39,7 @@ export default function PostureChart() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const res = await fetch("/api/posture");
+                const res = await fetch("posture/api/posture");
                 if (!res.ok) throw new Error("Failed to fetch data");
 
                 const data = await res.json();

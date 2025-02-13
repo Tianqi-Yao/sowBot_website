@@ -1,7 +1,7 @@
 "use client";
 import { useRouter, usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { menuItems } from "../../(config)/menuItems"; // 引入菜单项
+import { menuItems } from "../(config)/menuItems"; // 引入菜单项
 
 export default function Sidebar() {
     const router = useRouter();
