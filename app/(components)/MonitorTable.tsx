@@ -1,3 +1,6 @@
+import { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { filterConfig } from "../(config)/filterConfig";
 import { columns } from "../(config)/columns";
 import { AnimalData } from "../(data)/fakeData";
@@ -30,6 +33,53 @@ export default function MonitorTable({
     sortConfig,
     resetFilter,
 }: MonitorTableProps) {
+    // 临时输入状态（数值和时间）
+    const [inputValues, setInputValues] = useState<{ [key: string]: { start?: string; end?: string } }>({});
+
+    // 统一提交输入框的值
+    const handleSubmit = (key: string) => {
+        const value = inputValues[key];
+        updateFilter(key as keyof AnimalData, value);
+    };
+
+    // 处理输入变化
+    const handleInputChange = (key: string, field: "start" | "end", newValue: string) => {
+        setInputValues((prev) => ({
+            ...prev,
+            [key]: {
+                ...prev[key],
+                [field]: newValue,
+            },
+        }));
+    };
+
+    // 处理按键事件 (Enter 提交)
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, key: string) => {
+        if (e.key === "Enter") {
+            handleSubmit(key);
+            e.currentTarget.blur(); // 失去焦点
+        }
+    };
+
+    // 处理失去焦点事件
+    const handleBlur = (key: string) => {
+        handleSubmit(key);
+    };
+
+    const handleDateSubmit = (key: string) => {
+        const value = inputValues[key];
+        updateFilter(key as keyof AnimalData, {
+            start: value?.start?.toISOString().split('T')[0],
+            end: value?.end?.toISOString().split('T')[0],
+        });
+    };
+
+    // 重置筛选 + 重置临时输入
+    const handleReset = () => {
+        resetFilter();
+        setInputValues({});
+    };
+
     return (
         <div className="overflow-x-auto bg-white shadow-md rounded-lg">
             <table className="w-full border-collapse border border-gray-300">
@@ -56,7 +106,7 @@ export default function MonitorTable({
                     <tr className="bg-gray-100">
                         <td className="border px-4 py-2">
                             <button
-                                onClick={resetFilter}
+                                onClick={handleReset}
                                 className="px-3 py-1 bg-gray-300 rounded-md"
                             >
                                 Reset
@@ -67,6 +117,7 @@ export default function MonitorTable({
 
                             return (
                                 <td key={key} className="border px-4 py-2">
+                                    {/* Dropdown 类型 */}
                                     {config.type === "dropdown" && (
                                         <select
                                             value={filters[key] || ""}
@@ -87,70 +138,58 @@ export default function MonitorTable({
                                         </select>
                                     )}
 
+                                    {/* 数值区间类型 */}
                                     {config.type === "range" && (
                                         <div className="flex space-x-2">
                                             <input
                                                 type="number"
-                                                min={config.min}
-                                                max={config.max}
-                                                placeholder="Min"
+                                                value={inputValues[key]?.start || ""}
+                                                placeholder={`Min (${config.min ?? "N/A"})`}
                                                 className="w-1/2 border rounded-md p-1"
                                                 onChange={(e) =>
-                                                    updateFilter(
-                                                        key as keyof AnimalData,
-                                                        { start: e.target.value }
-                                                    )
+                                                    handleInputChange(key, "start", e.target.value)
                                                 }
+                                                onKeyDown={(e) => handleKeyDown(e, key)}
+                                                onBlur={() => handleBlur(key)}
                                             />
                                             <input
                                                 type="number"
-                                                min={config.min}
-                                                max={config.max}
-                                                placeholder="Max"
+                                                value={inputValues[key]?.end || ""}
+                                                placeholder={`Max (${config.max ?? "N/A"})`}
                                                 className="w-1/2 border rounded-md p-1"
                                                 onChange={(e) =>
-                                                    updateFilter(
-                                                        key as keyof AnimalData,
-                                                        { end: e.target.value }
-                                                    )
+                                                    handleInputChange(key, "end", e.target.value)
                                                 }
+                                                onKeyDown={(e) => handleKeyDown(e, key)}
+                                                onBlur={() => handleBlur(key)}
                                             />
                                         </div>
                                     )}
 
+                                    {/* 使用 react-datepicker 实现时间区间筛选 */}
                                     {config.type === "time" && (
                                         <div className="flex space-x-2">
-                                            <input
-                                                type="date"
-                                                min={config.startDate}
-                                                max={config.endDate}
-                                                className="w-1/2 border rounded-md p-1"
-                                                placeholder="Start Date"
-                                                onChange={(e) =>
-                                                    updateFilter(
-                                                        key as keyof AnimalData,
-                                                        {
-                                                            ...(filters[key] as any),
-                                                            start: e.target.value,
-                                                        }
-                                                    )
-                                                }
+                                            <DatePicker
+                                                selected={inputValues[key]?.start || null}
+                                                onChange={(date) => {
+                                                    handleInputChange(key, "start", date);
+                                                }}
+                                                onCalendarClose={() => handleDateSubmit(key)} // 日历关闭时提交
+                                                dateFormat="yyyy-MM-dd"
+                                                placeholderText="Start Date"
+                                                className="w-fit border rounded-md p-1"
+                                                isClearable
                                             />
-                                            <input
-                                                type="date"
-                                                min={config.startDate}
-                                                max={config.endDate}
-                                                className="w-1/2 border rounded-md p-1"
-                                                placeholder="End Date"
-                                                onChange={(e) =>
-                                                    updateFilter(
-                                                        key as keyof AnimalData,
-                                                        {
-                                                            ...(filters[key] as any),
-                                                            end: e.target.value,
-                                                        }
-                                                    )
-                                                }
+                                            <DatePicker
+                                                selected={inputValues[key]?.end || null}
+                                                onChange={(date) => {
+                                                    handleInputChange(key, "end", date);
+                                                }}
+                                                onCalendarClose={() => handleDateSubmit(key)} // 日历关闭时提交
+                                                dateFormat="yyyy-MM-dd"
+                                                placeholderText="End Date"
+                                                className="w-fit border rounded-md p-1"
+                                                isClearable
                                             />
                                         </div>
                                     )}
