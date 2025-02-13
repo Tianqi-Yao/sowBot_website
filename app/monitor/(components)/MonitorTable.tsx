@@ -1,8 +1,8 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { filterConfig } from "../../(config)/filterConfig";
-import { columns } from "../../(config)/columns";
+import { filterConfig } from "../(config)/filterConfig";
+import { columns } from "../(config)/columns";
 import { AnimalData } from "../(data)/fakeData";
 
 interface MonitorTableProps {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { AnimalData } from "../(data)/fakeData";
-import { filterConfig } from "../../(config)/filterConfig";
+import { filterConfig } from "../(config)/filterConfig";
 
 export function useFilter(data: AnimalData[]) {
     const [filters, setFilters] = useState<{
