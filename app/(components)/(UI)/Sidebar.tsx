@@ -11,14 +11,14 @@ export default function Sidebar() {
     // 确保 `selected` 与 `pathname` 一致
     useEffect(() => {
         const currentPage = pathname === "/" 
-            ? "Home" 
+            ? "Dashboard" 
             : pathname.replace("/", "").charAt(0).toUpperCase() + pathname.slice(2);
         setSelected(currentPage);
     }, [pathname]);
 
     const handleNavigation = (page: string) => {
         setSelected(page);
-        router.push(page === "Home" ? "/" : `/${page.toLowerCase()}`); // 处理 Home 页面路径
+        router.push(page === "Dashboard" ? "/" : `/${page.toLowerCase()}`); // 处理 Dashboard 页面路径
     };
 
     return (

@@ -1,1 +1,1 @@
-export const menuItems = ["Home", "Dashboard", "Posture", "Reports", "Settings", "Monitor"];
+export const menuItems = ["Dashboard", "Posture", "Reports", "Settings", "Monitor"];
