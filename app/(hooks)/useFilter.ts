@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { AnimalData } from "../(data)/fakeData";
+import { ColumnConfig } from "../(config)/columnConfig";
 
-export function useFilter(data: AnimalData[]) {
+export function useFilter(data: AnimalData[], columnConfig: ColumnConfig[]) {
     const [filters, setFilters] = useState<{
-        [key: string]: string | number | undefined;
+        [key: string]: string | number | { min?: number; max?: number } | undefined;
     }>({});
     const [filteredData, setFilteredData] = useState<AnimalData[]>(data);
     const [sortConfig, setSortConfig] = useState<{
@@ -11,7 +12,7 @@ export function useFilter(data: AnimalData[]) {
         direction: "asc" | "desc";
     } | null>(null);
 
-    // 当 `data` 变化时，自动更新 `filteredData`
+    // 当 data 变化时，自动更新 filteredData
     useEffect(() => {
         setFilteredData(data);
     }, [data]);
@@ -19,7 +20,7 @@ export function useFilter(data: AnimalData[]) {
     // 更新筛选条件，并立即筛选数据
     const updateFilter = (
         column: keyof AnimalData,
-        value: string | number | undefined
+        value: string | number | { min?: number; max?: number } | undefined
     ) => {
         setFilters((prev) => {
             const newFilters = { ...prev, [column]: value || undefined };
@@ -30,11 +31,25 @@ export function useFilter(data: AnimalData[]) {
         Object.entries({ ...filters, [column]: value || undefined }).forEach(
             ([key, val]) => {
                 if (val !== undefined) {
-                    newData = newData.filter(
-                        (item) =>
-                            String(item[key as keyof AnimalData]) ===
-                            String(val)
-                    );
+                    const columnConfigItem = columnConfig.find((col) => col.key === key);
+                    if (columnConfigItem?.filterType === "range" && typeof val === "object") {
+                        // 区间筛选
+                        newData = newData.filter((item) => {
+                            const itemValue = item[key as keyof AnimalData];
+                            if (typeof itemValue === "number") {
+                                return (
+                                    (val.min === undefined || itemValue >= val.min) &&
+                                    (val.max === undefined || itemValue <= val.max)
+                                );
+                            }
+                            return true;
+                        });
+                    } else {
+                        // 普通筛选
+                        newData = newData.filter(
+                            (item) => String(item[key as keyof AnimalData]) === String(val)
+                        );
+                    }
                 }
             }
         );
@@ -44,12 +59,10 @@ export function useFilter(data: AnimalData[]) {
 
     // 获取当前筛选条件下可选的唯一值
     const getFilteredValues = (key: keyof AnimalData) => {
-        let filteredSet = new Set<string | number>();        
-
+        let filteredSet = new Set<string | number>();
         filteredData.forEach((item) => {
             filteredSet.add(item[key]);
         });
-
         return Array.from(filteredSet).sort();
     };
 
