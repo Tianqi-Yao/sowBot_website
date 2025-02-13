@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
-import Navbar from "@/app/(components)/Navbar";
-import Sidebar from "@/app/(components)/Sidebar";
-import Footer from "@/app/(components)/Footer";
+import Navbar from "@/app/(components)/(UI)/Navbar";
+import Sidebar from "@/app/(components)/(UI)/Sidebar";
+import Footer from "@/app/(components)/(UI)/Footer";
 
 export const metadata: Metadata = {
     title: "SowBot",
