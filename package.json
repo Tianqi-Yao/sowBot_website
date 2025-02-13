@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/charts": "^2.2.6",
     "chart.js": "^4.4.7",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.475.0",
