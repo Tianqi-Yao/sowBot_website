@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export default function Sidebar() {
     const router = useRouter();
-    const [selected, setSelected] = useState("Dashboard");
+    const [selected, setSelected] = useState("");
 
     const handleNavigation = (page: string) => {
         setSelected(page);
@@ -15,9 +15,9 @@ export default function Sidebar() {
     };
 
     return (
-        <aside className="w-64 bg-gray-100 p-4 flex flex-col space-y-2">
+        <aside className="w-48 min-w-48 bg-gray-100 p-4 flex flex-col space-y-2">
             <h2 className="text-lg font-semibold text-red-700">Menu</h2>
-            {["Home", "Dashboard", "Input", "Reports", "Settings"].map((item) => (
+            {["Home", "Dashboard", "Posture", "Reports", "Settings"].map((item) => (
                 <button
                     key={item}
                     onClick={() => handleNavigation(item)}

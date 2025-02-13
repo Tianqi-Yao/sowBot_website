@@ -6,7 +6,7 @@ export default function Navbar() {
         <nav className="bg-red-700 text-white px-6 py-4 flex justify-between items-center">
             <div className="flex items-center space-x-4">
                 <Menu className="cursor-pointer" size={24} />
-                <h1 className="text-2xl font-bold">SowManager</h1>
+                <h1 className="text-2xl font-bold">SowBot Management System</h1>
             </div>
             <div className="flex items-center space-x-6">
                 <div className="relative">
