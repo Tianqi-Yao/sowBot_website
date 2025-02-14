@@ -2,9 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 import { generateFakeData, AnimalData } from "./(data)/fakeData";
-import { Table, Button, DatePicker, Space } from "antd";
+import { Table, Button, DatePicker, Space, Tag } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
 import dayjs from "dayjs";
+import "./TableStyles.css";
+
 
 const { RangePicker } = DatePicker;
 
@@ -12,7 +14,6 @@ type OnChange = NonNullable<TableProps<AnimalData>["onChange"]>;
 type Filters = Parameters<OnChange>[1];
 type GetSingle<T> = T extends (infer U)[] ? U : never;
 type Sorts = GetSingle<Parameters<OnChange>[2]>;
-
 
 export default function MonitorPage() {
     const [data, setData] = useState<AnimalData[]>([]);
@@ -115,6 +116,13 @@ export default function MonitorPage() {
             ],
             filteredValue: filteredInfo.reproductionStatus || null,
             onFilter: (value, record) => record.reproductionStatus === value,
+            render: (value, record) => (
+                <Space size="middle">
+                    <Tag color={value === "Pregnant" ? "green" : "volcano"}>
+                        {value === "Pregnant" ? "Pregnant" : "Not Pregnant"}
+                    </Tag>
+                </Space>
+            ),
         },
         {
             title: "Last Alert (Date)",
@@ -183,7 +191,7 @@ export default function MonitorPage() {
             onFilter: (value, record) => record.healthState === value,
         },
         {
-            title: "Rumination (min)",
+            title: "Standing (min)",
             dataIndex: "rumination",
             key: "rumination",
             sorter: (a, b) => a.rumination - b.rumination,
@@ -192,7 +200,7 @@ export default function MonitorPage() {
             filteredValue: filteredInfo.rumination || null, // 添加 filteredValue
         },
         {
-            title: "Eating (min)",
+            title: "Sitting  (min)",
             dataIndex: "eating",
             key: "eating",
             sorter: (a, b) => a.eating - b.eating,
@@ -217,7 +225,11 @@ export default function MonitorPage() {
                 rowKey="id"
                 onChange={handleChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
+                bordered
+                // onRow={(record) => ({
+                //     style: { backgroundColor: "rgba(90, 251, 121, 0.8)" },
+                // })}
             />
         </div>
     );
-};
+}

@@ -1,0 +1,20 @@
+.ant-table-thead > tr > th {
+    background-color: #7fa781 !important; /* 绿色背景 */
+    color: white !important; /* 白色文字 */
+    font-weight: bold;
+    text-align: center;
+}
+
+/* 表头边框 */
+.ant-table-thead > tr > th {
+    border: 1px dashed #ccc !important;
+}
+
+/* 表格单元格边框 */
+.ant-table-tbody > tr > td {
+    border: 1px dashed #ccc !important;
+}
+
+/* .ant-table {
+    border: 1px solid #999 !important;
+} */

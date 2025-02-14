@@ -3,11 +3,16 @@
 import React from "react";
 import { Radar } from "@ant-design/charts";
 
-type ActivityRadarChartProps = {
-    data: { item: string; value: number }[];
-};
+// Sample data (Ensure to replace this with actual fetched data)
+const sampleData = [
+    { item: "Activity A", value: 80 },
+    { item: "Activity B", value: 70 },
+    { item: "Activity C", value: 90 },
+    { item: "Activity D", value: 60 },
+    { item: "Activity E", value: 85 },
+];
 
-export const ActivityRadarChart = ({ data }: ActivityRadarChartProps) => {
+export  function ActivityRadarChart({ data = sampleData }) {
     const config = {
         data,
         xField: "item",
