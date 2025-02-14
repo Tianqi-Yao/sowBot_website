@@ -1,50 +1,52 @@
 "use client";
 
+import { Radar } from "@ant-design/plots";
 import React from "react";
-import { Radar } from "@ant-design/charts";
 
 // Sample data (Ensure to replace this with actual fetched data)
 const sampleData = [
-    { item: "Activity A", value: 80 },
-    { item: "Activity B", value: 70 },
-    { item: "Activity C", value: 90 },
-    { item: "Activity D", value: 60 },
-    { item: "Activity E", value: 85 },
+    { item: "Design", type: "Type A Score", score: 70 },
+    { item: "Design", type: "Type B Score", score: 30 },
+    { item: "Development", type: "Type A Score", score: 60 },
+    { item: "Development", type: "Type B Score", score: 70 },
+    { item: "Marketing", type: "Type A Score", score: 50 },
+    { item: "Marketing", type: "Type B Score", score: 60 },
+    { item: "Users", type: "Type A Score", score: 40 },
+    { item: "Users", type: "Type B Score", score: 50 },
+    { item: "Test", type: "Type A Score", score: 60 },
+    { item: "Test", type: "Type B Score", score: 70 },
+    { item: "Language", type: "Type A Score", score: 70 },
+    { item: "Language", type: "Type B Score", score: 50 },
+    { item: "Technology", type: "Type A Score", score: 50 },
+    { item: "Technology", type: "Type B Score", score: 40 },
+    { item: "Support", type: "Type A Score", score: 30 },
+    { item: "Support", type: "Type B Score", score: 40 },
+    { item: "Sales", type: "Type A Score", score: 60 },
+    { item: "Sales", type: "Type B Score", score: 40 },
+    { item: "UX", type: "Type A Score", score: 50 },
+    { item: "UX", type: "Type B Score", score: 60 },
 ];
 
-export  function ActivityRadarChart({ data = sampleData }) {
+export function ActivityRadarChart({ data = sampleData }) {
     const config = {
         data,
         xField: "item",
-        yField: "value",
-        appendPadding: [10, 10, 10, 10],
+        yField: "score",
+        colorField: "type",
+        shapeField: "smooth",
         area: {
             style: {
-                fill: "rgba(24, 144, 255, 0.3)",
+                fillOpacity: 0.5,
             },
         },
-        line: {
-            style: {
-                stroke: "#1890FF",
-            },
+        scale: {
+            x: { padding: 0.5, align: 0 },
+            y: { tickCount: 5, domainMax: 80 },
         },
-        point: {
-            size: 4,
-            shape: "circle",
-            style: {
-                fill: "#1890FF",
-                stroke: "#fff",
-                lineWidth: 2,
-            },
-        },
-        tooltip: {
-            showTitle: false,
-            formatter: (datum: { item: string; value: number }) => ({
-                name: datum.item,
-                value: datum.value.toFixed(1),
-            }),
+        axis: { x: { grid: true }, y: { zIndex: 1, title: false } },
+        style: {
+            lineWidth: 2,
         },
     };
-
     return <Radar {...config} />;
-};
+}

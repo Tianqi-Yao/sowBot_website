@@ -1,15 +1,13 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { Card, Col, Row, Statistic } from "antd";
 
-export function KeyMetricsCard() {
-    const [metrics, setMetrics] = useState({
-        TotalMonitoredSows: 120,
-        DetectedEstrusSows: 18,
-        SuspectedEstrusSows: 7,
-        NonEstrusSows: 95,
-    });
+const sampleData = {
+    TotalMonitoredSows: 120,
+    DetectedEstrusSows: 18,
+    SuspectedEstrusSows: 7,
+    NonEstrusSows: 95,
+};
+
+export function KeyMetricsCard({data = sampleData}) {
 
     return (
         <Row gutter={16} style={{ marginTop: 24 }}>
@@ -21,7 +19,7 @@ export function KeyMetricsCard() {
                                 Total Monitored Sows
                             </div>
                         }
-                        value={metrics.TotalMonitoredSows}
+                        value={data.TotalMonitoredSows}
                         valueStyle={{ color: "rgb(39, 181, 14)" }}
                     />
                 </Card>
@@ -34,7 +32,7 @@ export function KeyMetricsCard() {
                                 Estrus in Today
                             </div>
                         }
-                        value={metrics.DetectedEstrusSows}
+                        value={data.DetectedEstrusSows}
                         valueStyle={{ color: "rgb(209, 29, 29)" }}
                     />
                 </Card>
@@ -47,7 +45,7 @@ export function KeyMetricsCard() {
                                 Estrus in Tommorrow
                             </div>
                         }
-                        value={metrics.SuspectedEstrusSows}
+                        value={data.SuspectedEstrusSows}
                         valueStyle={{ color: "rgb(98, 83, 197)" }}
                     />
                 </Card>
@@ -60,7 +58,7 @@ export function KeyMetricsCard() {
                                 Non-Estrus Sows
                             </div>
                         }
-                        value={metrics.NonEstrusSows}
+                        value={data.NonEstrusSows}
                         valueStyle={{ color: "rgb(214, 187, 37)" }}
                     />
                 </Card>

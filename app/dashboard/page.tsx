@@ -1,14 +1,11 @@
 "use client";
 
 import React from "react";
-import { Typography } from "antd";
 import { KeyMetricsCard } from "@/app/dashboard/(components)/Cards/KeyMetricsCard";
-import { HealthStatusPieChart } from "./(components)/Charts/HealthStatusPieChart";
+import { PieChart } from "./(components)/Charts/PieChart";
 import { ActivityRadarChart } from "./(components)/Charts/ActivityRadarChart";
 import PostureChart4Class from "@/app/posture/(components)/PostureChart4Class";
 import { useRouter } from "next/navigation";
-
-const { Title, Text } = Typography;
 
 export default function DashboardPage() {
     const router = useRouter(); // 使用 next/navigation 中的 useRouter
@@ -35,10 +32,10 @@ export default function DashboardPage() {
             </div>
 
             <div style={{ marginTop: 24 }}>
-                <div className="flex flex-row justify-between">
                     <ActivityRadarChart />
-                    {/* <HealthStatusPieChart /> */}
-                </div>
+            </div>
+            <div style={{ marginTop: 24 }}>
+                    <PieChart />
             </div>
         </div>
     );
