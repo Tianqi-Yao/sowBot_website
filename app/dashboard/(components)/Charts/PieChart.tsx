@@ -22,7 +22,7 @@ export function PieChart({ data = sampleData, total = sampleDataTotal }) {
         colorField: "type",
         innerRadius: 0.5,
         width: 400,
-        height: 400,
+        height: 300,
         style: {
             inset: 1,
             stroke: "#fff", 
@@ -31,7 +31,7 @@ export function PieChart({ data = sampleData, total = sampleDataTotal }) {
             text: (d) => `${(d.value / total.value).toFixed(4) * 100}%`,
             style: {
                 fontWeight: "bold",
-                fontSize: 18,
+                fontSize: 14,
             },
         },
         // legend: {
@@ -51,7 +51,7 @@ export function PieChart({ data = sampleData, total = sampleDataTotal }) {
                     x: "50%",
                     y: "50%",
                     textAlign: "center",
-                    fontSize: 38,
+                    fontSize: 28,
                     fontStyle: "bold",
                 },
             },

@@ -1,4 +1,5 @@
 import { Card, Progress, Divider } from "antd";
+import { PieChartv2 } from "../Charts/PieChartv2";
 import { PieChart } from "../Charts/PieChart";
 import { Stethoscope } from "lucide-react";
 
@@ -31,8 +32,8 @@ export function Card1({ data = sampleData }) {
 
                     <p className="bold text-6xl font-bold">{data.total}</p>
                 </div>
-                <div className=" max-w-xl">
-                    <PieChart />
+                <div className="">
+                    <PieChartv2 />
                 </div>
             </div>
             {/* -------------------------------------------------------------------------- */
