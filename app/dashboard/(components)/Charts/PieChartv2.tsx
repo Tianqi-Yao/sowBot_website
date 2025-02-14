@@ -6,14 +6,16 @@ import { title } from "process";
 import { fontString } from "chart.js/helpers";
 
 const sampleDataTotal = {
-    type: "Total Monitored Sows",
-    value: 120,
+    type: "Total Sows",
+    value: 400,
 };
 
 const sampleData = [
-    { type: "Detected Estrus Sows", value: 18 },
-    { type: "Suspected Estrus Sows", value: 7 },
-    { type: "Non-Estrus Sows", value: 95 },
+    { type: "Bred", value: 90 },
+    { type: "In-Heat", value: 120 },
+    { type: "Pre-Heat", value: 80 },
+    { type: "Open", value: 90 },
+    { type: "Remove", value: 20 },
 ];
 
 export function PieChartv2({ data = sampleData, total = sampleDataTotal }) {
@@ -31,7 +33,7 @@ export function PieChartv2({ data = sampleData, total = sampleDataTotal }) {
             text: "value",
             style: {
                 fontWeight: "bold",
-                fontSize: 24,
+                fontSize: 12,
             },
             position: "outside",
         },

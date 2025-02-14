@@ -32,7 +32,7 @@ export function Card1({ data = sampleData }) {
 
                     <p className="bold text-6xl font-bold">{data.total}</p>
                 </div>
-                <div className="">
+                <div className="flex pt-2">
                     <PieChartv2 />
                 </div>
             </div>
