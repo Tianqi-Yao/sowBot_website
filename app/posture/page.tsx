@@ -10,7 +10,7 @@ export default function PosturePage() {
             <div>
                 <PostureChartSwitch />
             </div>
-            <div>
+            {/* <div>
                 <PostureChart />
             </div>
             <div>
@@ -19,7 +19,7 @@ export default function PosturePage() {
             
             <div>
                 <PostureChartOld />
-            </div>
+            </div> */}
         </div>
     );
 }

@@ -1,7 +1,7 @@
 import { Card, Col, Row, Statistic } from "antd";
 
 const sampleData = {
-    TotalMonitoredSows: 120,
+    TotalMonitoredSows: 400,
     DetectedEstrusSows: 18,
     SuspectedEstrusSows: 7,
     NonEstrusSows: 95,

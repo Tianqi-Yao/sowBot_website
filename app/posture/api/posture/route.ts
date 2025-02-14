@@ -14,7 +14,7 @@ interface PostureData {
 }
 
 export async function GET() {
-    console.log("GET /api/posture");
+    // console.log("GET /api/posture");
 
     try {
         // 读取 CSV 文件
@@ -117,8 +117,8 @@ export async function GET() {
         });
 
         // 输出统计结果
-        console.log("Posture Counts:", postureCounts);
-        console.log("Posture Percentages:", posturePercentages);
+        // console.log("Posture Counts:", postureCounts);
+        // console.log("Posture Percentages:", posturePercentages);
 
         const postureStatistics = {
             postureCounts,

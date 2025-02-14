@@ -21,6 +21,12 @@ export function PieChart({ data = sampleData, total = sampleDataTotal }) {
         angleField: "value",
         colorField: "type",
         innerRadius: 0.5,
+        width: 400,
+        height: 400,
+        style: {
+            inset: 1,
+            stroke: "#fff", 
+        },
         label: {
             text: (d) => `${(d.value / total.value).toFixed(4) * 100}%`,
             style: {
@@ -28,15 +34,15 @@ export function PieChart({ data = sampleData, total = sampleDataTotal }) {
                 fontSize: 18,
             },
         },
-        legend: {
-            color: {
-                title: false,
-                position: "right",
-                rowPadding: 6,
-                itemLabelFontSize: 18,
-                itemMarkerSize: 18,
-            },
-        },
+        // legend: {
+        //     color: {
+        //         title: false,
+        //         position: "right",
+        //         rowPadding: 6,
+        //         itemLabelFontSize: 18,
+        //         itemMarkerSize: 18,
+        //     },
+        // },
         annotations: [
             {
                 type: "text",
@@ -52,7 +58,7 @@ export function PieChart({ data = sampleData, total = sampleDataTotal }) {
         ],
         tooltip: {
             title: "type",
-            name: "counting",
+            // name: "counting",
             channel: "y",
             valueFormatter: (d) => d.toFixed(0),
         },

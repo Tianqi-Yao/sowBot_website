@@ -44,7 +44,7 @@ export default function PostureChartOld() {
 
                 const data = await res.json();
 
-                console.log("Fetched data:", data);
+                // console.log("Fetched data:", data);
 
                 if (!data.posturePercentages)
                     throw new Error("Invalid API response structure");
@@ -64,7 +64,7 @@ export default function PostureChartOld() {
                     })
                 );
 
-                console.log("Chart data:", { dates, datasets });
+                // console.log("Chart data:", { dates, datasets });
 
                 setChartData({
                     labels: dates,

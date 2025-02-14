@@ -25,7 +25,7 @@ export default function MonitorPage() {
 
     useEffect(() => {
         const newData = generateFakeData(200);
-        console.log("Generated Data:", newData);
+        // console.log("Generated Data:", newData);
         setData(newData);
         setFilteredData(newData);
     }, []);
@@ -50,7 +50,7 @@ export default function MonitorPage() {
 
     // 表格筛选与排序处理
     const handleChange: OnChange = (pagination, filters, sorter) => {
-        console.log("Table params:", pagination, filters, sorter);
+        // console.log("Table params:", pagination, filters, sorter);
         setFilteredInfo(filters);
         setSortedInfo(sorter as Sorts);
     };

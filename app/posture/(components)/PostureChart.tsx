@@ -31,7 +31,7 @@ export default function PostureChart() {
                 if (!res.ok) throw new Error("Failed to fetch data");
 
                 const data = await res.json();
-                console.log("Fetched data:", data);
+                // console.log("Fetched data:", data);
 
                 if (!data.posturePercentages)
                     throw new Error("Invalid API response structure");
@@ -57,7 +57,7 @@ export default function PostureChart() {
                     });
                 });
 
-                console.log("Formatted chart data:", formattedData);
+                // console.log("Formatted chart data:", formattedData);
                 setChartData(formattedData);
             } catch (err) {
                 console.error("Error fetching posture data:", err);
