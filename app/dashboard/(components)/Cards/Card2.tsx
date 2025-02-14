@@ -35,7 +35,7 @@ export function Card2({ data = sampleData }) {
                             />
                             <p className="bold text-lg">Idle</p>
                         </div>
-                        <p>{data.idle}</p>
+                        <p className="font-bold text-2xl ml-2 mt-2">{data.idle}</p>
                     </Card>
                 </Col>
                 <Col span={24}>
@@ -49,7 +49,7 @@ export function Card2({ data = sampleData }) {
                             />
                             <p className="bold text-lg">In-Serves</p>
                         </div>
-                        <p>{data.inServes}</p>
+                        <p className="font-bold text-2xl ml-2 mt-2">{data.inServes}</p>
                     </Card>
                 </Col>
                 <Col span={24}>
@@ -63,7 +63,7 @@ export function Card2({ data = sampleData }) {
                             />
                             <p className="bold text-lg">Off-Line</p>
                         </div>
-                        <p>{data.offline}</p>
+                        <p className="font-bold text-2xl ml-2 mt-2">{data.offline}</p>
                     </Card>
                 </Col>
             </Row>
