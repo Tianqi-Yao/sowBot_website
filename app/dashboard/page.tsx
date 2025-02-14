@@ -16,10 +16,10 @@ export default function DashboardPage() {
     return (
         <div style={{ padding: 24 }}>
             {/* 标题区域 */}
-            <Title level={2}>Estrus Detection Dashboard</Title>
-            <Text type="secondary">
-                Real-time monitoring of estrus status and health data
-            </Text>
+            <div className="text-5xl mb-4 font-bold">Estrus Detection Dashboard</div>
+            <div className="text-3xl mb-4 font-medium">
+                Real-time monitoring of estrus status
+            </div>
 
             {/* 关键指标卡片 */}
             <KeyMetricsCard />

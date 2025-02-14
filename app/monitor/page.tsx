@@ -7,7 +7,6 @@ import type { TableColumnsType, TableProps } from "antd";
 import dayjs from "dayjs";
 import "./TableStyles.css";
 
-
 const { RangePicker } = DatePicker;
 
 type OnChange = NonNullable<TableProps<AnimalData>["onChange"]>;
@@ -212,7 +211,9 @@ export default function MonitorPage() {
 
     return (
         <div style={{ padding: 24 }}>
-            <h1>Animal Monitoring Dashboard</h1>
+            <h1 className="text-5xl font-bold font-sans">
+                Animal Monitoring Dashboard
+            </h1>
             <Space style={{ marginBottom: 16 }}>
                 {/* 重置按钮 */}
                 <Button onClick={clearAll} type="default">
@@ -226,9 +227,12 @@ export default function MonitorPage() {
                 onChange={handleChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
                 bordered
-                // onRow={(record) => ({
-                //     style: { backgroundColor: "rgba(90, 251, 121, 0.8)" },
-                // })}
+                onRow={(record) => ({
+                    style: {
+                        // backgroundColor: "rgba(90, 251, 121, 0.8)"
+                        fontSize: "20px",
+                    },
+                })}
             />
         </div>
     );

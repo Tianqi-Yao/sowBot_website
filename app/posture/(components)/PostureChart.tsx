@@ -84,6 +84,29 @@ export default function PostureChart() {
                 shared: true,
             },
         },
+        axis: {
+            x: {
+                labelFontSize: 15,
+                labelFill: "rgb(0, 0, 0)",
+                labelFontWeight: 600,
+            },
+            y: {
+                labelFontSize: 15,
+                labelFill: "rgb(0, 0, 0)",
+                labelFontWeight: 600,
+            },
+        },
+        legend: {
+            color: {
+                itemMarker: "rect", //图标类型
+
+                itemMarkerSize: 18, //图标大小
+
+                itemLabelFontSize: "16px",
+
+                itemSpan: 1000,
+            },
+        },
         tooltip: { channel: "y0", valueFormatter: ".0%" },
     };
 
