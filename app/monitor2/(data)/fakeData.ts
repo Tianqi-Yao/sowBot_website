@@ -1,6 +1,6 @@
 export interface AnimalData {
     id: number;
-    group: string;
+    group: number;
     dim: number;
     lactation: number;
     daysSinceBreeding: number;
@@ -31,33 +31,23 @@ export const generateFakeData = (count: number): AnimalData[] => {
         } while (generatedIds.has(newId)); // 确保 ID 不重复
         generatedIds.add(newId);
 
-        // 生成随机的 group a b c d
-        const group = "ABC"[Math.floor(Math.random() * 3)];
-
         const health =
             healthStates[Math.floor(Math.random() * healthStates.length)];
         const hours = Math.floor(Math.random() * 24);
         const minutes = Math.floor(Math.random() * 60);
         const seconds = Math.floor(Math.random() * 60);
-        
-        // 随机生成最后一次报警时间和日期 从2025 1月1日开始到 20256月31日23时59分59秒
-        const lastAlertDate = new Date();
-        lastAlertDate.setFullYear(2025);
-        lastAlertDate.setMonth(Math.floor(Math.random() * 6) + 1);
-        lastAlertDate.setDate(Math.floor(Math.random() * 28) + 1);
-        lastAlertDate.setHours(hours);
-        lastAlertDate.setMinutes(minutes);
-        lastAlertDate.setSeconds(seconds);
-        const lastAlert = lastAlertDate.toLocaleString();
 
         return {
             id: newId,
-            group: group,
+            group: Math.floor(Math.random() * 100) + 1,
+            dim: Math.floor(Math.random() * 300),
             lactation: Math.floor(Math.random() * 4) + 1,
             daysSinceBreeding: Math.floor(Math.random() * 200),
             reproductionStatus:
                 Math.random() > 0.5 ? "Pregnant" : "Not Pregnant",
-            lastAlert: lastAlert,
+            lastAlert: `2025-04-01 ${String(hours).padStart(2, "0")}:${String(
+                minutes
+            ).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`,
             healthState: health.state,
             healthColor: health.color,
             rumination: Math.floor(Math.random() * 600),
