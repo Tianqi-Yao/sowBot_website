@@ -15,7 +15,7 @@ const sampleData = [
     { type: "In-Heat", value: 120 },
     { type: "Pre-Heat", value: 80 },
     { type: "Open", value: 90 },
-    { type: "Remove", value: 20 },
+    { type: "Removed", value: 20 },
 ];
 
 export function PieChartv2({ data = sampleData, total = sampleDataTotal }) {

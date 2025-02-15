@@ -81,7 +81,7 @@ export default function PostureChartOld() {
     return (
         <div className="flex flex-col bg-white shadow-md rounded-md h-2/3 w-screen pb-14 pl-9">
             <h2 className="text-xl font-semibold mb-4">
-                Posture Distribution Over Time
+                Posture Changes Over Time
             </h2>
             {error ? (
                 <p className="text-red-500">{error}</p>

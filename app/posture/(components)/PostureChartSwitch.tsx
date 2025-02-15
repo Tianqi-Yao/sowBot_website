@@ -123,8 +123,8 @@ export default function PostureChart() {
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-4xl font-semibold">
                     {useMerged
-                        ? "Posture Distribution"
-                        : "Detailed Posture Distribution"}
+                        ? "Posture Changes"
+                        : "Detailed Posture Changes"}
                 </h2>
                 <Button onClick={() => setUseMerged(!useMerged)}>
                     Switch to {useMerged ? "Detail" : "Original"} View
