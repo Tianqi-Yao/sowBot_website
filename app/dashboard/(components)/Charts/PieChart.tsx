@@ -22,7 +22,7 @@ export function PieChart({ data = sampleData, total = sampleDataTotal }) {
         angleField: "value",
         colorField: "type",
         innerRadius: 0.6,
-        width: 150,
+        width: 200,
         height: 300,
         // padding: [0, 0, 0, 0],
         style: {
