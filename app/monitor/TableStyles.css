@@ -3,7 +3,7 @@
     color: white !important; /* 白色文字 */
     font-weight: bold;
     text-align: center;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 /* 表头边框 */
@@ -19,3 +19,7 @@
 /* .ant-table {
     border: 1px solid #999 !important;
 } */
+
+td {
+    text-align: center;
+}

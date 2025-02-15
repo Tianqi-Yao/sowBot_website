@@ -1,22 +1,23 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { generateFakeData, AnimalData } from "./(data)/fakeData";
+import { generateFakeData } from "./(data)/fakeData";
 import { Table, Button, DatePicker, Space, Tag } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
 import dayjs from "dayjs";
 import "./TableStyles.css";
+import { useMountMergeState } from "@ant-design/pro-components";
 
 const { RangePicker } = DatePicker;
 
-type OnChange = NonNullable<TableProps<AnimalData>["onChange"]>;
+type OnChange = NonNullable<TableProps["onChange"]>;
 type Filters = Parameters<OnChange>[1];
 type GetSingle<T> = T extends (infer U)[] ? U : never;
 type Sorts = GetSingle<Parameters<OnChange>[2]>;
 
 export default function MonitorPage() {
-    const [data, setData] = useState<AnimalData[]>([]);
-    const [filteredData, setFilteredData] = useState<AnimalData[]>([]);
+    const [data, setData] = useMountMergeState([]);
+    const [filteredData, setFilteredData] = useState([]);
     const [dateRange, setDateRange] = useState<
         [dayjs.Dayjs | null, dayjs.Dayjs | null]
     >([null, null]);
@@ -25,7 +26,7 @@ export default function MonitorPage() {
 
     useEffect(() => {
         const newData = generateFakeData(200);
-        // console.log("Generated Data:", newData);
+        console.log("Generated Data:", newData);
         setData(newData);
         setFilteredData(newData);
     }, []);
@@ -64,7 +65,7 @@ export default function MonitorPage() {
     };
 
     // 表格列定义
-    const columns: TableColumnsType<AnimalData> = [
+    const columns: TableColumnsType = [
         {
             title: "Animal ID",
             dataIndex: "id",
@@ -74,7 +75,7 @@ export default function MonitorPage() {
             filteredValue: filteredInfo.id || null, // 添加 filteredValue
         },
         {
-            title: "Group",
+            title: "Pen",
             dataIndex: "group",
             key: "group",
             filters: [
@@ -86,7 +87,7 @@ export default function MonitorPage() {
             onFilter: (value, record) => record.group === value,
         },
         {
-            title: "Lactation",
+            title: "Barn",
             dataIndex: "lactation",
             key: "lactation",
             sorter: (a, b) => a.lactation - b.lactation,
@@ -95,7 +96,7 @@ export default function MonitorPage() {
             filteredValue: filteredInfo.lactation || null, // 添加 filteredValue
         },
         {
-            title: "Days Since Breeding",
+            title: "Move in Days",
             dataIndex: "daysSinceBreeding",
             key: "daysSinceBreeding",
             sorter: (a, b) => a.daysSinceBreeding - b.daysSinceBreeding,
@@ -106,25 +107,40 @@ export default function MonitorPage() {
             filteredValue: filteredInfo.daysSinceBreeding || null, // 添加 filteredValue
         },
         {
-            title: "Reproduction Status",
-            dataIndex: "reproductionStatus",
-            key: "reproductionStatus",
+            title: "Status",
+            dataIndex: "Status",
+            key: "Status",
             filters: [
-                { text: "Pregnant", value: "Pregnant" },
-                { text: "Not Pregnant", value: "Not Pregnant" },
+                { text: "Bred", value: "Bred" },
+                { text: "In-Heat", value: "In-Heat" },
+                { text: "Pre-Heat", value: "Pre-Heat" },
+                { text: "Open", value: "Open" },
+                { text: "Removed", value: "Removed" },
             ],
-            filteredValue: filteredInfo.reproductionStatus || null,
-            onFilter: (value, record) => record.reproductionStatus === value,
+            filteredValue: filteredInfo.Status || null,
+            onFilter: (value, record) => record.Status === value,
             render: (value, record) => (
                 <Space size="middle">
-                    <Tag color={value === "Pregnant" ? "green" : "volcano"}>
-                        {value === "Pregnant" ? "Pregnant" : "Not Pregnant"}
+                    <Tag
+                        color={
+                            value === "Bred"
+                                ? "green"
+                                : value === "In-Heat"
+                                ? "red"
+                                : value === "Pre-Heat"
+                                ? "orange"
+                                : value === "Open"
+                                ? "blue"
+                                : "gray"
+                        }
+                    >
+                        {value}
                     </Tag>
                 </Space>
             ),
         },
         {
-            title: "Last Alert (Date)",
+            title: "Last Checked",
             dataIndex: "lastAlert",
             key: "lastAlert",
             render: (date) => dayjs(date).format("YYYY-MM-DD HH:mm:ss"),
@@ -172,40 +188,19 @@ export default function MonitorPage() {
             ),
         },
         {
-            title: "Health State",
-            dataIndex: "healthState",
-            key: "healthState",
-            render: (text, record) => (
-                <span style={{ color: record.healthColor }}>{text}</span>
-            ),
+            title: "Body Condition Score (BCS)",
+            dataIndex: "BCS",
+            key: "BCS",
+            className: 'BCS',
             filters: [
-                { text: "No movement", value: "No movement" },
-                { text: "Suspicious 1h", value: "Suspicious 1h" },
-                { text: "Suspicious 3h", value: "Suspicious 3h" },
-                { text: "Suspicious 22h", value: "Suspicious 22h" },
-                { text: "Very sick 1h", value: "Very sick 1h" },
-                { text: "Healthy", value: "Healthy" },
+                { text: "1", value: "1" },
+                { text: "2", value: "2" },
+                { text: "3", value: "3" },
+                { text: "4", value: "4" },
+                { text: "5", value: "5" },
             ],
             filteredValue: filteredInfo.healthState || null,
-            onFilter: (value, record) => record.healthState === value,
-        },
-        {
-            title: "Standing (min)",
-            dataIndex: "rumination",
-            key: "rumination",
-            sorter: (a, b) => a.rumination - b.rumination,
-            sortOrder:
-                sortedInfo.columnKey === "rumination" ? sortedInfo.order : null,
-            filteredValue: filteredInfo.rumination || null, // 添加 filteredValue
-        },
-        {
-            title: "Sitting  (min)",
-            dataIndex: "eating",
-            key: "eating",
-            sorter: (a, b) => a.eating - b.eating,
-            sortOrder:
-                sortedInfo.columnKey === "eating" ? sortedInfo.order : null,
-            filteredValue: filteredInfo.eating || null, // 添加 filteredValue
+            onFilter: (value, record) => record.BCS === value,
         },
     ];
 
@@ -220,7 +215,7 @@ export default function MonitorPage() {
                     Reset Filtering And Sorting
                 </Button>
             </Space>
-            <Table<AnimalData>
+            <Table
                 columns={columns}
                 dataSource={filteredData}
                 rowKey="id"

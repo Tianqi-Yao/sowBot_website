@@ -5,7 +5,7 @@ import PostureChartSwitch from "./(components)/PostureChartSwitch";
 
 export default function PosturePage() {
     return (
-        <div className="p-6">
+        <div className="p-6 w-3/4">
             {/* <h1 className="text-2xl font-bold mb-4 ">Posture Page</h1> */}
             <div>
                 <PostureChartSwitch />

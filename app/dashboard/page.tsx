@@ -32,31 +32,51 @@ export default function DashboardPage() {
                 </Col>
                 <Col span={8}>
                     <BarnCard
-                        data={{
-                            total: 100,
-                            bred: 50,
-                            inHeat: 30,
-                            preHeat: 20,
-                            open: 10,
-                            remove: 5,
+                        data={[
+                            { type: "Bred", value: 25 },
+                            { type: "In-Heat", value: 45 },
+                            { type: "Pre-Heat", value: 30 },
+                            { type: "Open", value: 41 },
+                            { type: "Remove", value: 1 },
+                        ]}
+                        total={{
+                            type: "Total Sows",
+                            value: 141,
                         }}
                         title="Barn 1"
                     />
                 </Col>
                 <Col span={8}>
-                    <BarnCard />
+                    <BarnCard
+                        data={[
+                            { type: "Bred", value: 35 },
+                            { type: "In-Heat", value: 35 },
+                            { type: "Pre-Heat", value: 30 },
+                            { type: "Open", value: 40 },
+                            { type: "Remove", value: 2 },
+                        ]}
+                        total={{
+                            type: "Total Sows",
+                            value: 142,
+                        }}
+                        title="Barn 2"
+                    />
                 </Col>
                 <Col span={8}>
-                    <BarnCard />
-                </Col>
-                <Col span={8}>
-                    <BarnCard />
-                </Col>
-                <Col span={8}>
-                    <BarnCard />
-                </Col>
-                <Col span={8}>
-                    <BarnCard />
+                    <BarnCard
+                        data={[
+                            { type: "Bred", value: 30 },
+                            { type: "In-Heat", value: 40 },
+                            { type: "Pre-Heat", value: 20 },
+                            { type: "Open", value: 25 },
+                            { type: "Remove", value: 2 },
+                        ]}
+                        total={{
+                            type: "Total Sows",
+                            value: 117,
+                        }}
+                        title="Barn 3"
+                    />
                 </Col>
             </Row>
         </>

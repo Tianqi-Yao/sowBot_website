@@ -101,26 +101,24 @@ export default function PostureChart() {
                 labelFontSize: 15,
                 labelFill: "rgb(0, 0, 0)",
                 labelFontWeight: 600,
+                labelFormatter: ".0%",
             },
         },
         legend: {
             color: {
                 itemMarker: "rect", //图标类型
-
                 itemMarkerSize: 18, //图标大小
-
                 itemLabelFontSize: "16px",
-
-                itemSpan: 1000,
+                // itemSpan: 1000,
             },
         },
         tooltip: { channel: "y0", valueFormatter: ".0%" },
     };
 
     return (
-        <div className="flex flex-col bg-white shadow-md rounded-md h-2/3 w-3/4 pb-14 pl-9">
+        <div>
             <h2 className="text-5xl mb-4 font-bold">
-                Posture Distribution Over Time (Percentage)
+            Posture Changes Over Time
             </h2>
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-4xl font-semibold">

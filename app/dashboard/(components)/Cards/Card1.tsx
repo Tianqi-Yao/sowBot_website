@@ -8,8 +8,8 @@ const sampleData = {
     bred: 90,
     inHeat: 120,
     preHeat: 80,
-    open: 90,
-    remove: 20,
+    open: 105,
+    remove: 5,
 };
 
 export function Card1({ data = sampleData }) {
@@ -24,7 +24,7 @@ export function Card1({ data = sampleData }) {
                             color="rgb(236, 51, 51)"
                             strokeWidth={2}
                         />
-                        <p className="bold font-bold text-4xl">Heat Alearts</p>
+                        <p className="bold font-bold text-4xl">Heat Alerts</p>
                     </div>
                     <p className="bold font-bold text-lg text-zinc-500 mt-2.5">
                         Total Monitored Sows

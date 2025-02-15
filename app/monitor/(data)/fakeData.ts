@@ -1,27 +1,4 @@
-export interface AnimalData {
-    id: number;
-    group: string;
-    dim: number;
-    lactation: number;
-    daysSinceBreeding: number;
-    reproductionStatus: string;
-    lastAlert: string;
-    healthState: string;
-    healthColor: string; // 对应不同颜色
-    rumination: number;
-    eating: number;
-}
-
-const healthStates = [
-    { state: "No movement", color: "gray-400" },
-    { state: "Suspicious 1h", color: "yellow-400" },
-    { state: "Suspicious 3h", color: "yellow-500" },
-    { state: "Suspicious 22h", color: "yellow-600" },
-    { state: "Very sick 1h", color: "red-500" },
-    { state: "Healthy", color: "green-500" },
-];
-
-export const generateFakeData = (count: number): AnimalData[] => {
+export const generateFakeData = (count: number) => {
     const generatedIds = new Set<number>(); // 记录已生成的 ID
 
     return Array.from({ length: count }, () => {
@@ -34,12 +11,15 @@ export const generateFakeData = (count: number): AnimalData[] => {
         // 生成随机的 group a b c d
         const group = "ABC"[Math.floor(Math.random() * 3)];
 
-        const health =
-            healthStates[Math.floor(Math.random() * healthStates.length)];
+        const BCS = Math.floor(Math.random() * 5) + 1;
         const hours = Math.floor(Math.random() * 24);
         const minutes = Math.floor(Math.random() * 60);
         const seconds = Math.floor(Math.random() * 60);
-        
+
+        const status = ["Bred", "In-Heat", "Pre-Heat", "Open", "Removed"][
+            Math.floor(Math.random() * 5)
+        ];
+
         // 随机生成最后一次报警时间和日期 从2025 1月1日开始到 20256月31日23时59分59秒
         const lastAlertDate = new Date();
         lastAlertDate.setFullYear(2025);
@@ -55,13 +35,9 @@ export const generateFakeData = (count: number): AnimalData[] => {
             group: group,
             lactation: Math.floor(Math.random() * 4) + 1,
             daysSinceBreeding: Math.floor(Math.random() * 200),
-            reproductionStatus:
-                Math.random() > 0.5 ? "Pregnant" : "Not Pregnant",
+            Status: status,
             lastAlert: lastAlert,
-            healthState: health.state,
-            healthColor: health.color,
-            rumination: Math.floor(Math.random() * 600),
-            eating: Math.floor(Math.random() * 400),
+            BCS: BCS,
         };
     });
 };

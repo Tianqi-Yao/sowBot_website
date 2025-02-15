@@ -33,7 +33,7 @@ export function Card3({ data = sampleData }) {
                             />
                             <p className="bold text-lg">Devices</p>
                         </div>
-                        <p>All Online</p>
+                        <p className="text-green-600 pt-2">All Online</p>
                     </Card>
                 </Col>
                 <Col span={24}>
@@ -47,7 +47,7 @@ export function Card3({ data = sampleData }) {
                             />
                             <p className="bold text-lg">Server</p>
                         </div>
-                        <p>All Online</p>
+                        <p className="text-green-600 pt-2">All Online</p>
                     </Card>
                 </Col>
                 <Col span={24}>
@@ -61,7 +61,7 @@ export function Card3({ data = sampleData }) {
                             />
                             <p className="bold text-lg">Router</p>
                         </div>
-                        <p>All Online</p>
+                        <p className="text-green-600 pt-2">All Online</p>
                     </Card>
                 </Col>
             </Row>
